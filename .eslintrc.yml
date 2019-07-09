@@ -1,0 +1,71 @@
+---
+env:
+  ## For index.tsx
+  browser: true
+  es6: true
+  node: true
+
+extends:
+  - airbnb
+  ## Required for resolving TS module paths
+  - plugin:import/typescript
+  - plugin:@typescript-eslint/recommended
+  - prettier/@typescript-eslint
+  - plugin:prettier/recommended
+
+globals:
+  Atomics: readonly
+  SharedArrayBuffer: readonly
+
+overrides:
+  ## Unit and e2e tests
+  - env:
+      jest: true
+    files:
+      - "*.spec.ts"
+      - "*.spec.tsx"
+
+## Required for parsing TS and TSX files
+parser: "@typescript-eslint/parser"
+
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  ecmaVersion: 2018
+  sourceType: module
+
+plugins:
+  - react
+  ## Required for autofixing eslint and prettier rules by
+  ## hooking prettier up to eslint's --fix flag
+  - prettier
+  - autofix
+
+## 0 = off, 1 = warn, 2 = error
+rules:
+  ## ESLint rules
+  comma-dangle:
+    - error
+    - always-multiline
+  ## Useful for attaching higher-order components prior to export
+  no-underscore-dangle: 0
+
+  ## Plugin rules
+  "@typescript-eslint/no-empty-interface": 0
+  "@typescript-eslint/no-explicit-any": 0
+  "@typescript-eslint/explicit-function-return-type": 0
+  ## Required for only using named imports/exports
+  import/prefer-default-export: 0
+  ## Useful for spreading all props while calling specific props
+  react/destructuring-assignment: 0
+  ## Required for resolving TSX files
+  react/jsx-filename-extension: 0
+  ## Disables requirement for propTypes on React components
+  react/prop-types: 0
+
+  ## Prettier rules
+  prettier/prettier:
+    - error
+    - singleQuote: true
+      ## Multi-line only
+      trailingComma: all
