@@ -54,11 +54,19 @@ const mockGroupToCoord = {
 const mockValidatorsGroup = {
   name: 'validators',
   groups: [mockGroupIsPositive, mockGroupIsNegative],
+  hooks: [{
+    when: 'before each',
+    what: 'reset the mocks',
+  }]
 }
 
 const mockTransformersGroup = {
   name: 'transformers',
   groups: [mockGroupToCoord],
+  hooks: [{
+    when: 'before each',
+    what: 'reset the mocks',
+  }]
 }
 
 export const mock = {
